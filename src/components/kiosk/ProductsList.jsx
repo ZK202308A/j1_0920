@@ -1,11 +1,11 @@
 
 // eslint-disable-next-line react/prop-types
-function ProductsList({products}) {
+function ProductsList({products, addToCart}) {
 
     const liList = products.map( p => {
         const {pid, pname, price, kind, img} = p
 
-        return <li className='w-1/6 border-2 h-1/6 min-h-[10rem]' key={pid}>
+        return <li className='w-1/6 border-2 h-1/6 min-h-[10rem]' key={pid} onClick={() => addToCart(p)} >
             <img src={img}/>
             {pname} -- {price}
         </li>

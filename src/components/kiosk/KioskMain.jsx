@@ -1,5 +1,6 @@
 import ProductsList from "./ProductsList.jsx";
 import CartDiv from "./CartDiv.jsx";
+import {useState} from "react";
 
 function KioskMain() {
 
@@ -11,14 +12,39 @@ function KioskMain() {
         {pid:5, pname:'M5', price:9000, kind: 'N', img:'http://localhost:8081/food/M5.jpeg'},
     ]
 
+    const [cartItems, setCartItems] = useState([])
+
+    const addToCart = (product) => {
+
+        const target = cartItems.find( item => {
+            const p = item.product
+            console.log(p)
+            const result  = p.pid === product.pid
+            console.log(result)
+            return result ? p: null
+        } )
+
+        console.log(target)
+
+        if(!target){
+            setCartItems([...cartItems,{product:product, qty:1}])
+            return
+        }
+        //있다면 target의 수량을 변경한다.
+        target.qty += 1
+        setCartItems([...cartItems])
+
+
+
+    }
 
     return (
         <div className='w-full flex'>
             <div className='border-2 w-2/3'>
-                <ProductsList products={products}></ProductsList>
+                <ProductsList products={products} addToCart={addToCart}></ProductsList>
             </div>
             <div className='border-2 w-1/3'>
-                <CartDiv></CartDiv>
+                <CartDiv cartItems = {cartItems}></CartDiv>
             </div>
         </div>
     );
