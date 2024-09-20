@@ -14,27 +14,23 @@ function KioskMain() {
 
     const [cartItems, setCartItems] = useState([])
 
+
     const addToCart = (product) => {
 
         const target = cartItems.find( item => {
             const p = item.product
-            console.log(p)
             const result  = p.pid === product.pid
-            console.log(result)
             return result ? p: null
         } )
 
-        console.log(target)
-
         if(!target){
+            console.log("undefined... add " + product)
             setCartItems([...cartItems,{product:product, qty:1}])
-            return
+        }else {
+            //있다면 target의 수량을 변경한다.
+            target.qty += 1
+            setCartItems([...cartItems])
         }
-        //있다면 target의 수량을 변경한다.
-        target.qty += 1
-        setCartItems([...cartItems])
-
-
 
     }
 
